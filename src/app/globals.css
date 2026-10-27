@@ -1,0 +1,214 @@
+@import "tailwindcss";
+
+/* ─── Design tokens — calm, modern clinic ──────────────────────────────── */
+@theme {
+  --font-sans: var(--font-nunito-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-lexend), ui-sans-serif, system-ui, sans-serif;
+
+  --color-white: #ffffff;
+  --color-mist: #f3f8f9;
+  --color-mist-deep: #e6f0f2;
+  --color-ink: #11293b;
+  --color-muted: #51616e;
+  --color-line: #e2e9ee;
+  --color-line-strong: #c9d5dd;
+
+  /* Medical teal */
+  --color-brand-50: #ebf7f6;
+  --color-brand-100: #d4efec;
+  --color-brand-200: #a9ddd8;
+  --color-brand-300: #74c5be;
+  --color-brand-500: #189a91;
+  --color-brand-600: #0d7f78;
+  --color-brand-700: #0a6964;
+  --color-brand-800: #0a5753;
+  --color-brand-900: #0b4643;
+  --color-brand-950: #072f2d;
+
+  /* Deep navy for footer / dark bands */
+  --color-navy-800: #15344a;
+  --color-navy-900: #0e2638;
+
+  /* Warm highlight for ratings only */
+  --color-star: #f2a91c;
+
+  --color-alert: #b42318;
+  --color-alert-soft: #fdf0ee;
+
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+
+  --shadow-card: 0 1px 2px rgb(17 41 59 / 0.04), 0 12px 32px -14px rgb(17 41 59 / 0.18);
+  --shadow-float: 0 18px 40px -16px rgb(17 41 59 / 0.28);
+
+  --text-display-xl: clamp(2.35rem, 1.6rem + 3.2vw, 4.1rem);
+  --text-display-xl--line-height: 1.08;
+  --text-display-lg: clamp(1.95rem, 1.45rem + 2vw, 3rem);
+  --text-display-lg--line-height: 1.14;
+  --text-display-md: clamp(1.55rem, 1.3rem + 1vw, 2.15rem);
+  --text-display-md--line-height: 1.2;
+
+  --animate-rise: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* ─── Base ────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 7rem;
+  }
+
+  body {
+    background-color: var(--color-white);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  h1,
+  h2 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-brand-100);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-brand-500);
+    outline-offset: 2px;
+  }
+
+  [dir="rtl"] .rtl-flip {
+    transform: scaleX(-1);
+  }
+
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  dialog::backdrop {
+    background: rgb(14 38 56 / 0.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Utilities ───────────────────────────────────────────────────────── */
+@utility container-page {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Small tinted pill label above section headings */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+@utility card {
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+@utility prose-clinic {
+  & p {
+    margin-block: 1em;
+    line-height: 1.75;
+    color: var(--color-muted);
+  }
+  & h2 {
+    font-size: 1.6rem;
+    line-height: 1.2;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    color: var(--color-ink);
+  }
+  & h3 {
+    font-size: 1.25rem;
+    margin-top: 1.6em;
+    margin-bottom: 0.4em;
+    color: var(--color-ink);
+  }
+  & ul {
+    list-style: disc;
+    padding-inline-start: 1.25rem;
+    color: var(--color-muted);
+    line-height: 1.75;
+  }
+  & li {
+    margin-block: 0.35em;
+  }
+  & li::marker {
+    color: var(--color-brand-500);
+  }
+  & a {
+    color: var(--color-brand-700);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  & strong {
+    color: var(--color-ink);
+    font-weight: 700;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Header gains a soft shadow once the page scrolls (set by HeaderScrollState). */
+.site-header[data-scrolled="true"] {
+  box-shadow: 0 8px 24px -18px rgb(17 41 59 / 0.35);
+}
